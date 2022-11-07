@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ders Adı</th>
+            <th scope="col">Ders Açıklama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of user.Subscribe; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <a [href]="'control/'+item.Course.Id">
+                {{ item.Course.Title }}
+              </a>
+            </td>
+            <td>
+              {{ item.Course.Description }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

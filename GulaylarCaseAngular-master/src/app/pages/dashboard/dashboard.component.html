@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-success float-right" (click)="Modal(null,content)">Kurs Ekle</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Kurs Adı</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Detay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of courses; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <a [href]="'control/'+item.Id">
+                {{ item.Title }}
+              </a>
+            </td>
+            <td>{{ item.Description }}</td>
+            <td>
+              <a class="btn btn-warning" (click)="Modal(item,content)"><i class="fas fa-edit text-white"></i></a>
+              <a class="btn btn-danger" (click)="Delete(item)"><i class="far fa-trash-alt text-white"></i></a>
+              <a class="btn btn-primary" [href]="'statistic/'+item.Id"><i class="fas fa-signal text-white"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <button type="button" class="btn btn-success float-right" (click)="userModal(null,userModel)">Üye Ekle</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Üye Adı</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Detay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of users; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <a [href]="'user/'+item.Id">
+                {{ item.FirstName }} {{ item.LastName }}
+              </a>
+            </td>
+            <td>{{ item.Email }}</td>
+            <td>
+              <a class="btn btn-warning" (click)="userModal(item,userModel)"><i class="fas fa-edit text-white"></i></a>
+              <a class="btn btn-danger" (click)="DeleteUser(item)"><i class="far fa-trash-alt text-white"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ SelectCourse.Title }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <form>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input [(ngModel)]="SelectCourse.Title" type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="slug">Slug</label>
+            <input [(ngModel)]="SelectCourse.Slug" type="text" class="form-control" id="slug" name="slug">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input [(ngModel)]="SelectCourse.Description" type="text" class="form-control" id="description"
+              name="description">
+          </div>
+          <div class="form-group">
+            <label for="video_url">Video Url</label>
+            <input [(ngModel)]="SelectCourse.VideoUrl" type="text" class="form-control" id="video_url" name="video_url">
+          </div>
+          <button type="submit" (click)="Save()" class="btn btn-primary">Kaydet</button>
+        </form>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #userModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="User-Modal">{{ SelectUser.FirstName }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <form>
+          <div class="form-group">
+            <label for="FirstName">Üye Adı</label>
+            <input [(ngModel)]="SelectUser.FirstName" type="text" class="form-control" id="title" name="FirstName">
+          </div>
+          <div class="form-group">
+            <label for="LastName">Üye Soyadı</label>
+            <input [(ngModel)]="SelectUser.LastName" type="text" class="form-control" id="slug" name="LastName">
+          </div>
+          <div class="form-group">
+            <label for="Email">Email</label>
+            <input [(ngModel)]="SelectUser.Email" type="text" class="form-control" id="Email"
+              name="Email">
+          </div>
+          <div class="form-group">
+            <label for="Password">Şifre</label>
+            <input [(ngModel)]="SelectUser.Password" type="text" class="form-control" id="Password" name="Password">
+          </div>
+          <button type="submit" (click)="SaveUser()" class="btn btn-primary">Kaydet</button>
+        </form>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <button type="button" class="btn btn-success float-right" (click)="openModal(userModel)">Abone Ekle</button>
+      </div>
+      <div class="row">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Abone Adı</th>
+              <th scope="col">Bugün Derse Geldi Mi?</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of course.Subscribe; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <a [href]="'user/'+item.User.Id">
+                  {{ item.User.FirstName }} {{ item.User.LastName }}
+                </a>
+              </td>
+              <td><input type="checkbox" (click)="ChangeStatus(item)" [checked]="checkCourse(item)"></td>
+              <td>
+                <a class="btn btn-warning" (click)="SubscribeDelete(item)">Abonelikden Çıkar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #userModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="User-Modal">Kursa Üye Ekle</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Üye Adı</th>
+              <th scope="col">Mail</th>
+              <th scope="col">Detay</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of users; index as i" [hidden]="checkUserCourse(item)">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <a [href]="'user/'+item.Id">
+                  {{ item.FirstName }} {{ item.LastName }}
+                </a>
+              </td>
+              <td>{{ item.Email }}</td>
+              <td>
+                <a class="btn btn-success" (click)="SaveSubscribe(item)"><i class="fas fa-plus text-white"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</ng-template>
